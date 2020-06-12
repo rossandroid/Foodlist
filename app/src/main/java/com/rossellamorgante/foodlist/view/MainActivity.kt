@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: ListViewModel
-    private val foodsAdapter = FoodListAdapter(arrayListOf())
+    private val menuAdapter = FoodListAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         foodlist.apply{
             layoutManager = LinearLayoutManager(context)
-            adapter = foodsAdapter
+            adapter = menuAdapter
         }
 
         swipeRefreshLayout.setOnRefreshListener {
@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         observeViewModel()
     }
     fun observeViewModel(){
-        viewModel.foods.observe(this, Observer{foods ->
-            foods?.let{
+        viewModel.menu.observe(this, Observer{menu ->
+            menu?.let{
                 foodlist.visibility = View.VISIBLE
-                foodsAdapter.updateFoods(it)}
+                menuAdapter.updateMenu(it)}
         })
         viewModel.foodLoadError.observe(this, Observer{ isError ->
             isError?.let{list_error.visibility = if(it) View.VISIBLE else View.GONE}

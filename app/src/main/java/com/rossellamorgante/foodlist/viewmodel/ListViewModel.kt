@@ -3,31 +3,31 @@ package com.rossellamorgante.foodlist.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rossellamorgante.foodlist.model.Food
-import com.rossellamorgante.foodlist.model.FoodsService
+import com.rossellamorgante.foodlist.model.MenuService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class ListViewModel: ViewModel() {
-    private val foodService = FoodsService()
+    private val foodService = MenuService()
     private val disposable = CompositeDisposable()
-    val foods = MutableLiveData<List<Food>>()
+    val menu = MutableLiveData<List<Food>>()
     val foodLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
     fun refresh(){
-        fetchFoods()
+        fetchMenu()
     }
-    private fun fetchFoods(){
+    private fun fetchMenu(){
         loading.value = true
         disposable.add(
-            foodService.getFoods()
+            foodService.getMenu()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Food>>(){
                     override fun onSuccess(value: List<Food>) {
-                        foods.value = value
+                        menu.value = value
                         foodLoadError.value = false
                         loading.value = false
                     }

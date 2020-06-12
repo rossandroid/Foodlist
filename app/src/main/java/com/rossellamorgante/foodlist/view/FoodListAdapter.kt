@@ -10,7 +10,7 @@ import com.rossellamorgante.foodlist.util.getProgressDrawable
 import com.rossellamorgante.foodlist.util.loadImage
 import kotlinx.android.synthetic.main.item_food.view.*
 
-class FoodListAdapter(var foods: ArrayList<Food>): RecyclerView.Adapter<FoodListAdapter.FoodViewHolder>() {
+class FoodListAdapter(var menu: ArrayList<Food>): RecyclerView.Adapter<FoodListAdapter.FoodViewHolder>() {
 
     class FoodViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val imageView = view.imageView
@@ -23,18 +23,18 @@ class FoodListAdapter(var foods: ArrayList<Food>): RecyclerView.Adapter<FoodList
             imageView.loadImage(food.picture, progressDrawable)
         }
     }
-    fun updateFoods(newFood: List<Food>){
-        foods.clear()
-        foods.addAll(newFood)
+    fun updateMenu(newFood: List<Food>){
+        menu.clear()
+        menu.addAll(newFood)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FoodViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_food, parent, false))
 
-    override fun getItemCount() = foods.size
+    override fun getItemCount() = menu.size
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
-        holder.bind(foods[position])
+        holder.bind(menu[position])
     }
 }
