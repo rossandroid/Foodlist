@@ -6,7 +6,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FoodsService {
-    private val BASE_URL = "http://www.cookingidea.eu"
+    private val BASE_URL = "https://www.cookingidea.eu"
     private val api: FoodsApi
     init{
         api = Retrofit.Builder()

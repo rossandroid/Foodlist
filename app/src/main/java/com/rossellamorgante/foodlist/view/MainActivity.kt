@@ -31,7 +31,9 @@ class MainActivity : AppCompatActivity() {
     }
     fun observeViewModel(){
         viewModel.foods.observe(this, Observer{foods ->
-            foods?.let{foodsAdapter.updateFoods(it)}
+            foods?.let{
+                foodlist.visibility = View.VISIBLE
+                foodsAdapter.updateFoods(it)}
         })
         viewModel.foodLoadError.observe(this, Observer{ isError ->
             isError?.let{list_error.visibility = if(it) View.VISIBLE else View.GONE}
