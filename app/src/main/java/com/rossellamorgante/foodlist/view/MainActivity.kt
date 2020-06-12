@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
             adapter = foodsAdapter
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            viewModel.refresh()
+        }
+
         observeViewModel()
     }
     fun observeViewModel(){
