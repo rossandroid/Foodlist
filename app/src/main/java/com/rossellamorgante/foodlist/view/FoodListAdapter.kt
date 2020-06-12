@@ -6,14 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rossellamorgante.foodlist.R
 import com.rossellamorgante.foodlist.model.Food
+import com.rossellamorgante.foodlist.util.getProgressDrawable
+import com.rossellamorgante.foodlist.util.loadImage
 import kotlinx.android.synthetic.main.item_food.view.*
 
 class FoodListAdapter(var foods: ArrayList<Food>): RecyclerView.Adapter<FoodListAdapter.FoodViewHolder>() {
 
     class FoodViewHolder(view: View): RecyclerView.ViewHolder(view){
-       private val foodName = view.name
+        private val imageView = view.imageView
+        private val foodType = view.type
+        private val foodName = view.name
+        private val progressDrawable = getProgressDrawable(view.context)
         fun bind(food: Food){
             foodName.text = food.foodName
+            foodType.text = food.type
+            imageView.loadImage(food.picture, progressDrawable)
         }
     }
     fun updateFoods(newFood: List<Food>){
