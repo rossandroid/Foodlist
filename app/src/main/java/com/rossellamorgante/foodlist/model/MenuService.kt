@@ -1,20 +1,15 @@
 package com.rossellamorgante.foodlist.model
 
+import com.rossellamorgante.foodlist.dependencyinj.DaggerApiComponent
 import io.reactivex.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 class MenuService {
-    private val BASE_URL = "https://www.cookingidea.eu"
-    private val api: MenuApi
+
+    @Inject
+    lateinit var api: MenuApi
     init{
-        api = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(MenuApi::class.java)
+        DaggerApiComponent.create().inject(this)
     }
 
     fun getMenu(): Single<List<Food>> {
