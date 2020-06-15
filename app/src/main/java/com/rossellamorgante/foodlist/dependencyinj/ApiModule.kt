@@ -1,6 +1,7 @@
 package com.rossellamorgante.foodlist.dependencyinj
 
 import com.rossellamorgante.foodlist.model.MenuApi
+import com.rossellamorgante.foodlist.model.MenuService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -20,5 +21,9 @@ class ApiModule {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
             .create(MenuApi::class.java)
+    }
+    @Provides
+    fun provideMenuService(): MenuService {
+        return MenuService()
     }
 }
